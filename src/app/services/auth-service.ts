@@ -5,13 +5,11 @@ import { Router } from '@angular/router';
     providedIn: 'root',
 })
 export class AuthService {
-    isLoggedIn = signal(true);
+    isLoggedIn = signal(false);
 
     router = inject(Router);
 
     login(username: string, password: string) {
-        console.log(username, password);
-
         username = username.trim().toLowerCase();
 
         if (username === 'test' && password === 'test123') {

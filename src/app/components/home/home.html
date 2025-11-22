@@ -1,5 +1,5 @@
 <div class="table-container">
-    <h1>Objave <button mat-button (click)="logout()">Logout</button></h1>
+    <h1>Objave <button mat-button class="logout-button" (click)="logout()">Logout</button></h1>
     <ng-select [(ngModel)]="selectedTag" class="tags-select">
         @for (tag of tags; track tag.id) {
         <ng-option [value]="tag.id">{{tag.name}}</ng-option>

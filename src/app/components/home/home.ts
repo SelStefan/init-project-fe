@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { DetailsModal } from '../details-modal/details-modal';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../../services/auth-service';
+import { MatButtonModule } from '@angular/material/button';
 
 interface PostsResponse {
     posts: Post[];
@@ -31,7 +32,7 @@ export interface Post {
 
 @Component({
     selector: 'app-home',
-    imports: [MatTableModule, MatPaginatorModule, NgSelectModule, FormsModule, CommonModule],
+    imports: [MatTableModule, MatPaginatorModule, NgSelectModule, FormsModule, CommonModule, MatButtonModule],
     templateUrl: './home.html',
     styleUrl: './home.scss',
 })
@@ -87,7 +88,7 @@ export class Home implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
             // if (result !== undefined) {
-                // this.animal.set(result);
+            // this.animal.set(result);
             // }
         });
     }
