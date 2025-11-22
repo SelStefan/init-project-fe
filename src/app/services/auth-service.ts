@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
     providedIn: 'root',
 })
 export class AuthService {
-    isLoggedIn = signal(false);
+    isLoggedIn = signal(true);
 
     router = inject(Router);
 
