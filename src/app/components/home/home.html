@@ -1,5 +1,10 @@
 <div class="table-container">
     <h1>Objave</h1>
+    <ng-select [(ngModel)]="selectedTag" class="tags-select">
+        @for (tag of tags; track tag.id) {
+        <ng-option [value]="tag.id">{{tag.name}}</ng-option>
+        }
+    </ng-select>
     <table mat-table [dataSource]="posts()" class="mat-elevation-z8 table-objave">
 
         <!--- Note that these columns can be defined in any order.
@@ -30,8 +35,9 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [class.row-mark]="row.tags.includes(selectedTagValue())"></tr>
     </table>
-    <mat-paginator [length]="total()" [pageSize]="limit()" [pageSizeOptions]="[5, 10, 25, 100]" (page)="onPageChange($event)" aria-label="Select page">
+    <mat-paginator [length]="total()" [pageSize]="limit()" [pageSizeOptions]="[5, 10, 25, 100]"
+        (page)="onPageChange($event)" aria-label="Select page">
     </mat-paginator>
 </div>

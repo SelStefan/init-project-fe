@@ -1,7 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 interface PostsResponse {
     posts: Post[];
@@ -25,7 +28,7 @@ interface Post {
 
 @Component({
     selector: 'app-home',
-    imports: [MatTableModule, MatPaginatorModule],
+    imports: [MatTableModule, MatPaginatorModule, NgSelectModule, FormsModule, CommonModule],
     templateUrl: './home.html',
     styleUrl: './home.scss',
 })
@@ -39,13 +42,22 @@ export class Home implements OnInit {
 
     displayedColumns: string[] = ['id', 'title', 'body', 'tags'];
 
+    selectedTag = signal<number | null>(null);
+    selectedTagValue = computed(() => this.tags.find(tag => tag.id === this.selectedTag())?.name);
+    tags = [
+        { id: 1, name: 'history' },
+        { id: 2, name: 'american' },
+        { id: 3, name: 'crime' },
+        { id: 4, name: 'magical' },
+        { id: 5, name: 'french' },
+    ];
+
     ngOnInit(): void {
         console.log('Home component initialized');
         this.getPosts();
     }
 
     getPosts() {
-        // console.log(skip, limit);
         this.httpClient.get<PostsResponse>('https://dummyjson.com/posts/search',
             { params: { skip: this.skip(), limit: this.limit() } }).subscribe((res) => {
                 console.log(res);
@@ -57,7 +69,6 @@ export class Home implements OnInit {
     }
 
     onPageChange(event: PageEvent) {
-        // console.log(event.pageIndex * event.pageSize, event.pageSize);
         this.skip.set(event.pageIndex * event.pageSize);
         this.limit.set(event.pageSize);
         this.getPosts();
