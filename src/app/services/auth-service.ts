@@ -21,4 +21,9 @@ export class AuthService {
             this.isLoggedIn.set(false);
         }
     }
+
+    logout(): void {
+        this.isLoggedIn.set(false);
+        this.router.navigate(['/login']);
+    }
 }

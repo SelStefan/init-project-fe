@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>Post Details (id: {{post.id}})</h2>
+<mat-dialog-content>
+    <h3>Title</h3>
+    <p>{{post.title}}</p>
+    <h3>Body</h3>
+    <p>{{post.body}}</p>
+    <h3>Tags</h3>
+    <p>{{post.tags.join(', ')}}</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button matButton (click)="closeClick()">Close</button>
+</mat-dialog-actions>

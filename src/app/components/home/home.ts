@@ -5,6 +5,9 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { DetailsModal } from '../details-modal/details-modal';
+import { MatDialog } from '@angular/material/dialog';
+import { AuthService } from '../../services/auth-service';
 
 interface PostsResponse {
     posts: Post[];
@@ -13,7 +16,7 @@ interface PostsResponse {
     limit: number;
 }
 
-interface Post {
+export interface Post {
     id: number;
     title: string;
     body: string;
@@ -38,7 +41,9 @@ export class Home implements OnInit {
     skip = signal<number>(0);
     limit = signal<number>(10);
 
-    httpClient = inject(HttpClient);
+    readonly httpClient = inject(HttpClient);
+    readonly dialog = inject(MatDialog);
+    readonly authService = inject(AuthService);
 
     displayedColumns: string[] = ['id', 'title', 'body', 'tags'];
 
@@ -72,5 +77,22 @@ export class Home implements OnInit {
         this.skip.set(event.pageIndex * event.pageSize);
         this.limit.set(event.pageSize);
         this.getPosts();
+    }
+
+    openPostDetails(post: Post): void {
+        const dialogRef = this.dialog.open(DetailsModal, {
+            data: post,
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+            // if (result !== undefined) {
+                // this.animal.set(result);
+            // }
+        });
+    }
+
+    logout(): void {
+        this.authService.logout();
     }
 }

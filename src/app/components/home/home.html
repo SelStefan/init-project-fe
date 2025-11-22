@@ -1,5 +1,5 @@
 <div class="table-container">
-    <h1>Objave</h1>
+    <h1>Objave <button mat-button (click)="logout()">Logout</button></h1>
     <ng-select [(ngModel)]="selectedTag" class="tags-select">
         @for (tag of tags; track tag.id) {
         <ng-option [value]="tag.id">{{tag.name}}</ng-option>
@@ -35,7 +35,8 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [class.row-mark]="row.tags.includes(selectedTagValue())"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+            [class.row-mark]="row.tags.includes(selectedTagValue())" (click)="openPostDetails(row)"></tr>
     </table>
     <mat-paginator [length]="total()" [pageSize]="limit()" [pageSizeOptions]="[5, 10, 25, 100]"
         (page)="onPageChange($event)" aria-label="Select page">
