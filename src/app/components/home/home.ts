@@ -59,7 +59,6 @@ export class Home implements OnInit {
     ];
 
     ngOnInit(): void {
-        console.log('Home component initialized');
         this.getPosts();
     }
 
@@ -87,9 +86,6 @@ export class Home implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
-            // if (result !== undefined) {
-            // this.animal.set(result);
-            // }
         });
     }
 

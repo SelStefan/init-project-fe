@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 export class AuthService {
     isLoggedIn = signal(false);
 
-    router = inject(Router);
+    readonly router = inject(Router);
 
     login(username: string, password: string) {
         username = username.trim().toLowerCase();
